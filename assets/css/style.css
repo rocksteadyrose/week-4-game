@@ -1,0 +1,20 @@
+body {
+    background-color: rgb(121, 121, 250);
+}
+
+#characters {
+    max-width: 100%;
+	display: flex;
+    flex-direction: row;
+}
+
+#obiwandiv, #lukediv, #darthsdiv, #darthmdiv {
+    max-width: 150px;
+    margin: 10px;
+    padding: 10px;
+    background-color: white;
+}
+
+#yourcharacter {
+    /*padding-top: 70px;
+}
