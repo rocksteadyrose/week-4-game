@@ -24,103 +24,87 @@
 //VARIABLES
 
 
-var characterChosen;
+var characterChosen = "";
 var enemyChosen = false;
 
 var character = [
         obiwan = 
         {name: "Obi-Wan Kenobi", 
-        image: "<img src='assets/images/obiwankenobi.jpg' width='100px'>",
+        image: "<img class='characterclass' src='assets/images/obiwankenobi.jpg' width='100px' height='100px'>",
         health: 120},
 
         luke =
         {name: "Luke Skywalker",
-        image: "<img src='assets/images/lukeskywalker.jpg' width='100px'>",
+        image: "<img class='characterclass' src='assets/images/lukeskywalker.jpg' width='100px' height='100px'>",
         health: 100},
 
         darthsidious =
         {name: "Darth Sidious",
-        image: "<img src='assets/images/darthsidious.jpg' width='100px'>",
+        image: "<img class='characterclass' src='assets/images/darthsidious.jpg' width='100px' height='100px'>",
         health: 150},
 
         darthmaul =
         {name: "Darth Maul",
-        image: "<img src='assets/images/darthmaul.jpg' width='100px'>",
+        image: "<img class='characterclass' src='assets/images/darthmaul.jpg' width='100px' height='100px'>",
         health: 180},
 ];
 
-$('#characters').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health + "</h4></div>");
-$('#characters').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
-$('#characters').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
-$('#characters').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
+$('#characters').append("<div class = 'thumbnail' id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health + "</h4></div>");
+$('#characters').append("<div class = 'thumbnail' id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
+$('#characters').append("<div class = 'thumbnail' id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
+$('#characters').append("<div class = 'thumbnail' id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
 
 //START GAME
 
-function startGame() {
-    clickCharactersInitial();
-    }
+//function startGame() {
+    //chooseCharacter(character);
+   // clickCharactersInitial();
+   // }
 
 //CHOOSE YOUR CHARACTER
 
-function chooseCharacter(character) {
-    function clickCharactersInitial() {
-    $( "#obiwandiv").on( "click", function() {
-        $('#yourcharacter').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health + "</h4></div>");
-        $("#obiwandiv").empty();
-        $("#lukediv").off('click'); $("#darthsdiv").off('click'); $("#darthmdiv").off('click');
-        chooseCharacter(obiwan);
+    //function startGame (){
+    $("#characters .characterclass").on( "click", function() {
+        for (var i = 0; i < character.length; i++) {
+            if (character[i] = this) {
+                $('#enemiesavailable').append(character[i]);}
+            }})
+
+
+    //$( "#obiwandiv").on( "click", function() {
+     //   $('#yourcharacter').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health + "</h4></div>");
+    //    $("#obiwandiv").empty();
+     //   $("#lukediv").off('click'); $("#darthsdiv").off('click'); $("#darthmdiv").off('click');
+     //   characterChosen === obiwan;
         //chooseEnemies(character);
-    })
+   // })
 
-    $( "#lukediv").on( "click", function() {
-        $('#yourcharacter').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
-        $("#lukediv").empty();
-        $("#obiwandiv").off('click'); $("#darthsdiv").off('click'); $("#darthmdiv").off('click');
-        //characterChosen = luke;
-        //chooseEnemies(character);
-    })
+   // $( "#lukediv").on( "click", function() {
+   //     $('#yourcharacter').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
+     //   $("#lukediv").empty();
+    //    $("#obiwandiv").off('click'); $("#darthsdiv").off('click'); $("#darthmdiv").off('click');
+    //    characterChosen === luke;
+    //    //chooseEnemies(character);
+  //  })
 
-    $( "#darthsdiv").on( "click", function() {
-        $('#yourcharacter').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
-        $("#darthsdiv").empty();
-        $("#obiwandiv").off('click'); $("#lukediv").off('click'); $("#darthmdiv").off('click');
-        chooseCharacter(luke);
-        //chosenCharacter = darthsidious;
-        //chooseEnemies(darthsidious);
-    })
+ //   $( "#darthsdiv").on( "click", function() {
+ //       $('#yourcharacter').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
+  //      $("#darthsdiv").empty();
+  //      $("#obiwandiv").off('click'); $("#lukediv").off('click'); $("#darthmdiv").off('click');
+  //      characterChosen === darthsidious;
+  //      //chooseEnemies(darthsidious);
+  //  })
 
-    $( "#darthmdiv").on( "click", function() {
-        $('#yourcharacter').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
-        $("#darthmdiv").empty();
-        $("#obiwandiv").off('click'); $("#lukediv").off('click'); $("#darthsdiv").off('click');
-        //chosenCharacter = darthmaul;
-        //chooseEnemies(darthmaul);
-    })
-    }
-}
+ //   $( "#darthmdiv").on( "click", function() {
+  //      $('#yourcharacter').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
+    //    $("#darthmdiv").empty();
+    //    $("#obiwandiv").off('click'); $("#lukediv").off('click'); $("#darthsdiv").off('click');
+    //    characterChosen === darthmaul;
+    //    console.log(characterChosen);
+//        //chooseEnemies(darthmaul);
+  //  })
 
-function chooseEnemies() {
-    if (characterChosen = obiwan); {
-    $('#enemiesavailable').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
-    $('#enemiesavailable').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
-    $('#enemiesavailable').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
-    $("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
-}
-
-    if (characterChosen = luke); {
-    $('#enemiesavailable').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health+"</h4></div>");
-    $('#enemiesavailable').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
-    $('#enemiesavailable').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
-    $("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
-}
-}
-
-
-
-startGame();
-
-
-
+//startGame();
 
 
 
@@ -153,23 +137,31 @@ startGame();
 
 
 
-//if (chosenCharacter = luke) {
-  //  $('#enemiesavailable').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health+"</h4></div>");
-  //  $('#enemiesavailable').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
-  //  $('#enemiesavailable').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
-  //  $("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
-//}
 
-   // if (chosenCharacter = darthsidious) {
-   // $('#enemiesavailable').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
-   // $('#enemiesavailable').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health+"</h4></div>");
-  //  $('#enemiesavailable').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
-  //  $("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
-//}
-
-  //  if (chosenCharacter = darthmaul) {
+//function chooseEnemy() {
+//if (characterChosen === luke) 
   //  $('#enemiesavailable').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
   //  $('#enemiesavailable').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
-  //  $('#enemiesavailable').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health+"</h4></div>");
+  //  $('#enemiesavailable').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
   //  $("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
 //}
+ //   if (characterChosen === obiwan); {
+  //  $('#enemiesavailable').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health+"</h4></div>");
+ //   $('#enemiesavailable').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
+ //   $('#enemiesavailable').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
+  //  $("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
+  //  }
+  //  if (characterChosen === character) {
+  //  $('#enemiesavailable').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
+ //   $('#enemiesavailable').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health+"</h4></div>");
+ //   $('#enemiesavailable').append("<div id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
+  //  $("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
+ //   }
+ //   if (characterChosen === character) {
+ //   $('#enemiesavailable').append("<div id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
+  //  $('#enemiesavailable').append("<div id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image
+ //  +"<br><h4>Health: "+darthsidious.health+"</h4></div>");
+//  $('#enemiesavailable').append("<div id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "
+ // +obiwan.health+"</h4></div>");
+  //$("#obiwandiv").empty(); $("#lukediv").empty(); $("#darthsdiv").empty(); $("#darthmdiv").empty();
+  //}
