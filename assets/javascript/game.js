@@ -49,10 +49,19 @@ var character = [
         health: 180},
 ];
 
-$('#characters').append("<div class = 'thumbnail' id = 'obiwandiv'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health + "</h4></div>");
-$('#characters').append("<div class = 'thumbnail' id = 'lukediv'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
-$('#characters').append("<div class = 'thumbnail' id = 'darthsdiv'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
-$('#characters').append("<div class = 'thumbnail' id = 'darthmdiv'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
+var obiwanimage = $(".characters");
+obiwanimage.append("<div class = 'thumbnail'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health + "</h4></div>");
+var lukeimage = $(".characters");
+lukeimage.append("<div class = 'thumbnail'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
+var darthsidiousimage = $(".characters");
+darthsidiousimage.append("<div class = 'thumbnail'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
+var darthmaulimage = $(".characters");
+darthmaulimage.append("<div class = 'thumbnail'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
+
+$('.characters').append(obiwanimage);
+$('.characters').append(lukeimage);
+$('.characters').append(darthsidiousimage);
+$('.characters').append(darthmaulimage);
 
 //START GAME
 
@@ -65,13 +74,28 @@ $('#characters').append("<div class = 'thumbnail' id = 'darthmdiv'>"+darthmaul.n
 
 
         
-            $(".thumbnail").on( "click", function() {
-                
-                if (character != this) {
-                    $('#enemiesavailable').append(character);
-                    //$('#characters').empty();
+            $(".col-lg-12 .thumbnail").on( "click", function() {
+                for (var i = 0; i < character.length; i++) {
+
+                if (character[i] != this) {
+                $('.enemiesavailable').append("<div class = 'thumbnail'>"+character[i].name+"<br>"+character[i].image+"<br><h4>Health: "+character[i].health+"</h4></div>"); 
                 }
-                if (character = this) {
-                    $('#yourcharacter').append(character);}
-                })
+
+                if (character[i] = this) {
+                    $('.yourcharacter').append(character[i]);
+                    $('.characters').empty();
+                    $(character[i]).remove('.enemiesavailable');}
+
+                    $(".thumbnail").on( "click", function() {
+                            if (character[i] = this) {
+                                $('.defendersection').append(character[i]);}
+                            })
+                }})
+
+                           
+                
+
+            
+                         
                     
+
