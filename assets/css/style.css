@@ -31,7 +31,7 @@ body {
     max-height: 250px;
 }
 
-.enemiesavailable {
+.enemies {
     max-width: 100%;
     max-height: 250px;
 	display: flex;
