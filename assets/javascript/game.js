@@ -28,6 +28,7 @@ var enemyChoice = false;
 var startGame = false;
 var enemy;
 var char;
+var defender;
 var chosenCharacter;
 
 var character = {
@@ -69,15 +70,19 @@ $('.characters').append(darthmaulimage);
 
   // CLICK FOR INITIAL CHARACTER
    $(".thumbnail").on( "click", function() {
+       if (userChoice === false && enemyChoice === false) {
             chosenCharacter = $(this).data("chosenCharacter");
             $('.yourcharacter').append($(this));
             $(".yourcharacter").attr("class", "yourcharacter");
-            $(".characters").attr("class", "enemies");
+            $(".characters").attr("class", "enemies"); //Move remaining characters by giving new attribute and then moving them to enemies section
             $('.enemiesavailable').append($(".enemies"));
+            $('.thumbnail').on( "click", function() {
+            defender = $(this).data("defender");
+            $('.defendersection').append($(this));
+            //$(".defendersection").addClass("defender").removeClass("enemies");
+            $(".defendersection").attr("class", "defender");})}
             }
-          
         )
-        
     
         
 
