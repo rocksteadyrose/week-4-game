@@ -23,44 +23,45 @@
 
 //VARIABLES
 
-var userChoice = false;
-var enemyChoice = false;
+var char;
+var characterChosen = false;
+var yourCharacter;
+var enemyChosen = false;
 var startGame = false;
 var enemy;
 var char;
 var defender;
-var chosenCharacter;
 
-var character = {
-       obiwan: 
+var character = [
+       obiwan= 
         {name: "Obi-Wan Kenobi", 
         image: "<img class='characterclass' src='assets/images/obiwankenobi.jpg' width='150px' height='100px'>",
         health: 120},
 
-        luke:
+        luke=
         {name: "Luke Skywalker",
         image: "<img class='characterclass' src='assets/images/lukeskywalker.jpg' width='150px' height='100px'>",
         health: 100},
 
-       darthsidious:
+       darthsidious=
         {name: "Darth Sidious",
         image: "<img class='characterclass' src='assets/images/darthsidious.jpg' width='150px' height='100px'>",
         health: 150},
 
-        darthmaul:
+        darthmaul=
         {name: "Darth Maul",
         image: "<img class='characterclass' src='assets/images/darthmaul.jpg' width='150px' height='100px'>",
         health: 180}
-};
+];
 
 var obiwanimage = $(".characters");
-obiwanimage.append("<div class = 'thumbnail' id='obiwan'>"+character.obiwan.name+"<br>"+character.obiwan.image+"<br><h4>Health: "+character.obiwan.health + "</h4></div>");
+obiwanimage.append("<div class = 'thumbnail' id='obiwan'>"+obiwan.name+"<br>"+obiwan.image+"<br><h4>Health: "+obiwan.health + "</h4></div>");
 var lukeimage = $(".characters");
-lukeimage.append("<div class = 'thumbnail' id='luke'>"+character.luke.name+"<br>"+character.luke.image+"<br><h4>Health: "+character.luke.health+"</h4></div>");
+lukeimage.append("<div class = 'thumbnail' id='luke'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>");
 var darthsidiousimage = $(".characters");
-darthsidiousimage.append("<div class = 'thumbnail' id='darthsidious'>"+character.darthsidious.name+"<br>"+character.darthsidious.image+"<br><h4>Health: "+character.darthsidious.health+"</h4></div>");
+darthsidiousimage.append("<div class = 'thumbnail' id='darthsidious'>"+darthsidious.name+"<br>"+darthsidious.image+"<br><h4>Health: "+darthsidious.health+"</h4></div>");
 var darthmaulimage = $(".characters");
-darthmaulimage.append("<div class = 'thumbnail' id='darthmaul'>"+character.darthmaul.name+"<br>"+character.darthmaul.image+"<br><h4>Health: "+character.darthmaul.health+"</h4></div>");
+darthmaulimage.append("<div class = 'thumbnail' id='darthmaul'>"+darthmaul.name+"<br>"+darthmaul.image+"<br><h4>Health: "+darthmaul.health+"</h4></div>");
 
 $('.characters').append(obiwanimage);
 $('.characters').append(lukeimage);
@@ -70,32 +71,45 @@ $('.characters').append(darthmaulimage);
 
   // CLICK FOR INITIAL CHARACTER
    $(".thumbnail").on( "click", function() {
-       if (userChoice === false && enemyChoice === false) {
-            chosenCharacter = $(this).data("chosenCharacter");
+       if (characterChosen === false && enemyChosen === false) {
+        
             $('.yourcharacter').append($(this));
             $(".yourcharacter").attr("class", "yourcharacter");
+            characterChosen === true;
+            char = $(this);
+            chooseCharacter(char);
             $(".characters").attr("class", "enemies"); //Move remaining characters by giving new attribute and then moving them to enemies section
             $('.enemiesavailable').append($(".enemies"));
+            enemyChosen === true;
             $('.thumbnail').on( "click", function() {
             defender = $(this).data("defender");
             $('.defendersection').append($(this));
-            //$(".defendersection").addClass("defender").removeClass("enemies");
-            $(".defendersection").attr("class", "defender");})}
+            $(".defendersection").attr("class", "defender");
+        })}
             }
         )
     
+   //    $(".attackButton").on( "click", function() {
+   //     $('.defendersection').append("<b>You attacked</b>" + defender + "for" + defender.health + "damage." + defender + "attacked you back for" + defender.health + "damage.");
+
+    
+
+     //   function defender(){
+    //        defender = "";
+    //    }
         
 
   // CHOOSE CHARACTER
-    function chooseCharacter(character) {
-    characterChosen = true;
-     }
-
+  function chooseCharacter(char) {
+  if (char = $("<div class = 'thumbnail' id='luke'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>"))
+  {char = luke; console.log(char)}
+ }
+//
      // CHOOSE ENEMY
-    function chooseEnemy(character) {
-    character = enemy;  
+    //function chooseEnemy(character) {
+ //   character = enemy;  
     //enemy.push(character);
-}
+//}
     
 
 
@@ -119,9 +133,7 @@ $('.characters').append(darthmaulimage);
 //Add in disabling of buttons above
    // START GAME
 
-   // $(".attackButton").on( "click", function() {
-   //  $('.defendersection').append("<b>You attacked</b>" + defender + "for" + defender.health + "damage." + defender + "attacked you back for" + defender.health + "damage.");
-//})
+  
 
                 
 
