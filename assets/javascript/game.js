@@ -22,15 +22,16 @@
 
 
 //VARIABLES
-
+$(document).ready(function() {
 var char;
 var characterChosen = false;
+var defendingTestCharacter;
 var yourCharacter;
 var enemyChosen = false;
 var startGame = false;
 var defenderChosen = false;
 var enemy;
-var defender;
+var defender = {};
 
 var character = {
        obiwan: 
@@ -60,13 +61,13 @@ var character = {
 };
 
 var obiwanimage = $(".characters");
-obiwanimage.append("<div class = 'thumbnail' id='obiwan'>"+character.obiwan.name+"<br>"+character.obiwan.image+"<br><h4>Health: "+character.obiwan.health + "</h4></div>");
+obiwanimage.append("<div class = 'thumbnail obiwan'>"+character.obiwan.name+"<br>"+character.obiwan.image+"<br><h4>Health: "+character.obiwan.health + "</h4></div>");
 var lukeimage = $(".characters");
-lukeimage.append("<div class = 'thumbnail' id='luke'>"+character.luke.name+"<br>"+character.luke.image+"<br><h4>Health: "+character.luke.health+"</h4></div>");
+lukeimage.append("<div class = 'thumbnail lukesky'>"+character.luke.name+"<br>"+character.luke.image+"<br><h4>Health: "+character.luke.health+"</h4></div>");
 var darthsidiousimage = $(".characters");
-darthsidiousimage.append("<div class = 'thumbnail' id='darthsidious'>"+character.darthsidious.name+"<br>"+character.darthsidious.image+"<br><h4>Health: "+character.darthsidious.health+"</h4></div>");
+darthsidiousimage.append("<div class = 'thumbnail darthsidious'>"+character.darthsidious.name+"<br>"+character.darthsidious.image+"<br><h4>Health: "+character.darthsidious.health+"</h4></div>");
 var darthmaulimage = $(".characters");
-darthmaulimage.append("<div class = 'thumbnail' id='darthmaul'>"+character.darthmaul.name+"<br>"+character.darthmaul.image+"<br><h4>Health: "+character.darthmaul.health+"</h4></div>");
+darthmaulimage.append("<div class = 'thumbnail darthmaul'>"+character.darthmaul.name+"<br>"+character.darthmaul.image+"<br><h4>Health: "+character.darthmaul.health+"</h4></div>");
 
 $('.characters').append(obiwanimage);
 $('.characters').append(lukeimage);
@@ -83,8 +84,8 @@ $('.characters').append(darthmaulimage);
     $(".characters").attr("class", "enemies"); //Move remaining characters by giving new attribute and then moving them to enemies section
     $('.enemiesavailable').append($(".enemies"))
     char = $(this);
-    console.log(char);
-    chooseEnemy(char)
+    chooseCharacter(char);
+    chooseEnemy(char);
 }
 
     else  {
@@ -100,17 +101,16 @@ $('.characters').append(darthmaulimage);
     char;
     console.log(char);
 
-    if (char = $("<div class = 'thumbnail' id='luke'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>"))
+    if (char.hasClass('thumbnail lukesky'))
     {char = character.luke;}
  
-    if (char = $("<div class = 'thumbnail' id='darthmaul'>"+character.darthmaul.name+"<br>"+character.darthmaul.image+"<br><h4>Health: "+character.darthmaul.health+"</h4></div>"))
+    else if (char.hasClass('thumbnail darthmaul'))
     {char = character.darthmaul;}
 
-    if (char = $("<div class = 'thumbnail' id='darthsidious'>"+character.darthsidious.name+"<br>"+character.darthsidious.image+"<br><h4>Health: "+character.darthsidious.health+"</h4></div>"))
+    else if (char.hasClass('thumbnail darthsidious'))
         {char = character.darthsidious;}
    
-    if (char = $("<div class = 'thumbnail' id='obiwan'>"+character.obiwan.name+"<br>"+character.obiwan.image+"<br><h4>Health: "+character.obiwan.health + "</h4></div>"))
-        {char = character.obiwan;}
+    else {char = character.obiwan;}
 
     characterChosen = true;
  }
@@ -118,22 +118,22 @@ $('.characters').append(darthmaulimage);
 // CHOOSE ENEMY
 function chooseEnemy(char) {
 
-    if (char = $("<div class = 'thumbnail' id='luke'>"+luke.name+"<br>"+luke.image+"<br><h4>Health: "+luke.health+"</h4></div>"))
+    if (char.hasClass('thumbnail lukesky'))
     {char = enemy;
     enemy = character.luke;
 }
  
-    if (char = $("<div class = 'thumbnail' id='darthmaul'>"+character.darthmaul.name+"<br>"+character.darthmaul.image+"<br><h4>Health: "+character.darthmaul.health+"</h4></div>"))
+    if (char.hasClass('thumbnail darthmaul'))
     {char = enemy;
     enemy = character.darthmaul;
 }
 
-    if (char = $("<div class = 'thumbnail' id='darthsidious'>"+character.darthsidious.name+"<br>"+character.darthsidious.image+"<br><h4>Health: "+character.darthsidious.health+"</h4></div>"))
+    if (char.hasClass('thumbnail darthsidious'))
     {char = enemy;
     enemy = character.darthsidious;
 }
    
-    if (char = $("<div class = 'thumbnail' id='obiwan'>"+character.obiwan.name+"<br>"+character.obiwan.image+"<br><h4>Health: "+character.obiwan.health + "</h4></div>"))
+    else
     {char = enemy;
     enemy = character.obiwan;
 
@@ -144,35 +144,45 @@ function chooseEnemy(char) {
         
 //CHOOSE DEFENDER
 function chooseDefender(char) { 
+     
+        char.addClass("defending");
         console.log(char);
-        defender;
-        console.log(defender);  
-         
-
-        if (char = $("<div class = 'thumbnail' id='darthmaul'>"+character.darthmaul.name+"<br>"+character.darthmaul.image+"<br><h4>Health: "+character.darthmaul.health+"</h4></div>"))
-        {char = defender;
+        defendingTestCharacter = char;
+        defender = character;
+        
+        if (defendingTestCharacter.hasClass("thumbnail darthmaul defending"))
+        {
+        console.log(true);
         defender = character.darthmaul;
-       }
+        $('.message').html("<b>You attacked </b>" + defender.name + " for " + defender.damage + " damage. " + defender.name + " attacked you back for " + defender.damage + " damage.");
+        }
 
-        if (char = $("<div class = 'thumbnail' id='luke'>"+character.luke.name+"<br>"+character.luke.image+"<br><h4>Health: "+character.luke.health+"</h4></div>"))
-        {char = defender
+        else if (defendingTestCharacter.hasClass("thumbnail lukesky defending"))
+        {
+            console.log(true);
         defender = character.luke;
+        
+        $('.message').html("<b>You attacked </b>" + defender.name + " for " + defender.damage + " damage. " + defender.name + " attacked you back for " + defender.damage + " damage.");
         }
-
-        if (char = $("<div class = 'thumbnail' id='darthsidious'>"+character.darthsidious.name+"<br>"+character.darthsidious.image+"<br><h4>Health: "+character.darthsidious.health+"</h4></div>"))
-        {char = defender;
-        defender = character.darthsidious;
+    
+        else if (defendingTestCharacter.hasClass("thumbnail darthsidious defending"))
+        {console.log(defendingTestCharacter);
+            defender = character.darthsidious;
+        $('.message').html("<b>You attacked </b>" + defender.name + " for " + defender.damage + " damage. " + defender.name + " attacked you back for " + defender.damage + " damage.");
         }
-
-        if (char = $("<div class = 'thumbnail' id='obiwan'>"+character.obiwan.name+"<br>"+character.obiwan.image+"<br><h4>Health: "+character.obiwan.health + "</h4></div>"))
-        {char = defender;
-        defender = character.obiwan;}
+    
+        else 
+        {
+        defender = character.obiwan;
+        $('.message').html("<b>You attacked </b>" + defender.name + " for " + defender.damage + " damage. " + defender.name + " attacked you back for " + defender.damage + " damage.");
+        }
+    
+        defender;
+        console.log(defender);
     }
 
-    $(".attackButton").on( "click", function() {
-        console.log(defender);
-        $('.message').html("<b>You attacked </b>" + defender.name + " for " + defender.damage + " damage. " + defender.name + " attacked you back for " + defender.damage + " damage.");
-    })
+    defender;
+})
 
 
 
