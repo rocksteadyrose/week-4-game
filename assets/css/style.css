@@ -50,3 +50,10 @@ body {
 	display: flex;
     flex-direction: row;
 }
+
+.edited {
+    height: 200px;
+    width: 100px;
+	display: flex;
+    border: green solid 15px;
+}

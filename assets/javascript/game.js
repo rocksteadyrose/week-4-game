@@ -40,26 +40,30 @@ var character = {
         {name: "Obi-Wan Kenobi", 
         image: "<img class='characterclass' src='assets/images/obiwankenobi.jpg' width='150px' height='100px'>",
         health: 120,
-        damage: 8
+        baseAttack: 8,
+        attack: 8
     },
 
         luke:
         {name: "Luke Skywalker",
         image: "<img class='characterclass' src='assets/images/lukeskywalker.jpg' width='150px' height='100px'>",
         health: 100,
-        damage: 0},
+        baseAttack: 5,
+        attack: 5},
 
        darthsidious:
         {name: "Darth Sidious",
         image: "<img class='characterclass' src='assets/images/darthsidious.jpg' width='150px' height='100px'>",
         health: 150,
-        damage: 0},
+        baseAttack: 20,
+        attack: 20},
 
         darthmaul:
         {name: "Darth Maul",
         image: "<img class='characterclass' src='assets/images/darthmaul.jpg' width='150px' height='100px'>",
         health: 180,
-        damage: 25,}
+        baseAttack: 25,
+        attack: 25}
 };
 
 var obiwanimage = $(".characters");
@@ -205,18 +209,31 @@ function chooseEnemy(char, chosen) {
 
 
             function points(chosen, defender, defenderselector) {
-                //defender;
-                console.log(defender);
-               // chosen;
-                console.log(chosen);
-                defender.health--;
-                character.health++;
                     $(".attackButton").on( "click", function() {
-                        if ((defenderselector.hasClass('defending'))) {
-                    $('.message').html("<b>You attacked </b>" + defender.name + " for " + defender.damage + " damage. " + defender.name + " attacked you back for " + defender.damage + " damage.");
-                    $(".defendingchar").replaceWith("<div class = 'thumbnail'>" + defender.name + '<br>' + defender.image + '<br><h4>Health: ' + defender.health + "</h4></div>");
-                    $(".yourcharacter").replaceWith("<div class = 'thumbnail'>" + chosen.name + '<br>' + chosen.image + '<br><h4>Health: ' + chosen.health + "</h4></div>");
-                    }})}
+
+                    defender.health = defender.health - chosen.attack;// User attacks the defender and decreases the defender's health points
+                    $(".defendingchar").children().html("Health: " + defender.health);
+                    
+                    chosen.attack = chosen.attack + chosen.baseAttack;// User's attack power increases
+
+                    $(".message").html("<b>You attacked </b>" + defender.name + " for " + chosen.baseAttack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
+                    
+                    $(".yourcharacter").empty();
+                    $(".yourcharacter").append("<div class = 'thumbnail'>" + chosen.name + '<br>' + chosen.image + '<br><h4>Health: ' + chosen.health + "</h4></div>");
+
+
+
+                    if (defender.health > 0) {
+                        chosen.health = chosen.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
+                    
+                    
+                    else { $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
+                    $(".defendingchar").hide();}
+
+                    if (chosen.health < 0) 
+                    {
+                    $(".message").html("<p>You were defeated by " + defender.name + ". Choose another enemy.</p>");
+                    $(".defendingchar").hide();}})}
              
 
 
