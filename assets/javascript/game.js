@@ -237,7 +237,7 @@ function chooseEnemy(char, chosen) {
                     }})}
 
                     function reset(chosen) {
-                        $(".enemies").on( "click", function() {
+                        $(".thumbnail").on( "click", function() {
                         ($(this)).appendTo('.defender');
                         defenderselector = $(this);
                            // $(".defendersection").attr("class", "defender");
