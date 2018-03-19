@@ -32,7 +32,6 @@ var defenderselector;
 var enemyDefeated = false;
 var characterDefeated = false;
 var enemyChosen = false;
-var startGame = false;
 var defenderChosen = false;
 var enemy;
 var defender = {};
@@ -87,6 +86,8 @@ $('.characters').append(darthmaulimage);
 
 
   
+  function startGame () {
+  
   $(".thumbnail").on( "click", function() {
     $(".yourcharacter").append($(this));
     $(".yourcharacter").attr("class", "yourcharacter");
@@ -95,7 +96,10 @@ $('.characters').append(darthmaulimage);
     char = $(this);
     chooseCharacter(char);
     })
-    
+}
+
+startGame ();
+
   // CHOOSE CHARACTER
   function chooseCharacter(char) {
     $(char).addClass("characternondefender");
@@ -176,7 +180,6 @@ function chooseEnemy(char, chosen) {
 
     defenderselector.addClass("defending");
     defenderselector.removeClass("chosencharacter characternondefender");
-   // defender = character;
         
         if (defenderselector.hasClass("thumbnail darthmaul defending"))
         {
@@ -236,7 +239,7 @@ function chooseEnemy(char, chosen) {
 
                     if (chosen.health < 0) 
                     {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
-                    gameOver();}
+                    gameOver(defenderselector);}
                     
                     }})}
 
@@ -245,16 +248,21 @@ function chooseEnemy(char, chosen) {
                         $(defenderselector).removeClass("defendingchar defending");
                         ($(this)).appendTo('.defender');
                         defenderselector = $(this);
-                        defender = null;
-                        console.log(defender);
                            // $(".defendersection").attr("class", "defender");
                             chooseDefender(chosen, defender, defenderselector);})}
 
-                   function gameOver() {
+                   function gameOver(defenderselector) {
                     var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
                     $(".restart").append(button);
                     $(".restart").on( "click", function() {
-
+                    var characters = $("<div class = 'col-lg-12 characters'>");
+                    $(".container .row").append($(characters));
+                    $(characters).append($(defenderselector));
+                      //  $('.yourcharacter').insertAfter(".col-lg-12, .characters");
+                    // $('.defendingchar').appendTo('.characters');
+                    //  $('.enemiesavailable').appendTo(".characters");
+                    $(button).hide();
+                    startGame();
                     })
                    }
 });
@@ -267,25 +275,6 @@ function chooseEnemy(char, chosen) {
 
         
 
-
-//  $(char)).remove('.enemiesavailable');
-
-     //CHOOSE ENEMY
-  //     $(".thumbnail").on( "click", function() {
-   //     for (var i = 0; i < character.length; i++) {
-    //        if (character[i] = this) {
-    //           $('.defendersection').append(character[i]);
-     //            $(character[i]).addClass("defender-character").removeClass("enemy-character");
-     //            ;}
-    //         })
-
-    //     if (character[i] != this) {
-    //         $('.enemiesavailable').append("<div class = 'thumbnail'>"+character[i].name+"<br>"+character[i].image+"<br><h4>Health: "+character[i].health+"</h4></div>");
-  //           startGame = true;
-   //            $('.enemiesavailable').append(enemyChosen);
-// }
-//Add in disabling of buttons above
-   // START GAME
 
   
 
