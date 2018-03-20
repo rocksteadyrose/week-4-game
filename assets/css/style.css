@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+  }
+
 body {
     background-color: rgb(121, 121, 250);
 }
@@ -8,13 +12,6 @@ body {
     /*background-color: white;*/
 }
 
-#obiwandiv, #lukediv, #darthsdiv, #darthmdiv {
-    max-width: 150px;
-    margin: 10px;
-    padding: 10px;
-}
-
-
 .yourcharacter {
     max-width: 100%;
 	display: flex;
@@ -22,38 +19,31 @@ body {
 }
 
 .yourcharacter .thumbnail {
-    border: green solid 15px;
+    border: pink solid 15px;
 }
 
-.enemiesavailable .thumbnail {
-    border: red solid 15px;
+.enemycharacter {
     max-width: 100%;
-    max-height: 250px;
-}
-
-.enemies {
-    max-width: 100%;
-    max-height: 250px;
-	display: flex;
+    display: flex;
     flex-direction: row;
 }
 
-.defender .thumbnail {
+.enemycharacter .thumbnail {
+
+    border: rgb(3, 255, 255) solid 15px;
+}
+
+.defendingcharacter .thumbnail {
     border: black solid 15px;
     max-width: 100%;
-    max-height: 250px;
 }
 
-.defender {
+.defendingcharacter {
     max-width: 100%;
-    max-height: 250px;
 	display: flex;
     flex-direction: row;
 }
 
-.edited {
-    height: 200px;
-    width: 100px;
-	display: flex;
-    border: green solid 15px;
+.thumbnail {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }

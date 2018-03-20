@@ -2,35 +2,35 @@
 
     var characters = [
         {
-        name: 'Obi-Wan Kenobi',
+        name: 'Belle',
         id: 0,
-        image: 'assets/images/obiwankenobi.jpg',
+        image: 'assets/images/belle.jpeg',
         health: 120,
         baseAttack: 8,
         attack: 8
         },
       
         {
-        name: 'Luke Skywalker',
+        name: 'Elsa',
         id: 1,
-        image: 'assets/images/lukeskywalker.jpg',
+        image: 'assets/images/elsa.jpeg',
         health: 100,
         baseAttack: 5,
         attack: 5
         },
       
         {
-        name: "Darth Sidious",
+        name: "Cinderella",
         id: 2,
-        image: 'assets/images/darthsidious.jpg',
+        image: 'assets/images/cinderella.jpeg',
         health: 150,
         baseAttack: 20,
         attack: 20
         },
         {
-        name: "Darth Maul",
+        name: "Ariel",
         id: 3,
-        image: 'assets/images/darthmaul.jpg',
+        image: 'assets/images/ariel.jpeg',
         health: 180,
         baseAttack: 25,
         attack: 25
@@ -40,6 +40,7 @@
 var chosen;
 var enemies;
 var resetReady = false;
+var gameisover = false;
 var defender = [];
 var hasCharacterBeenChosen = false;
 var enemyDefeated = false;
@@ -141,28 +142,29 @@ var defendersRemaining = 3;
             $(".message").html("<b>You attacked </b>" + defender.name + " for " + selected[0].attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
             
             $(".yourcharacter").empty();
-            $(".yourcharacter").append("<div class = 'thumbnail'>" + selected[0].name + '<br>' + selected[0].image + '<br><h4>Health: ' + selected[0].health + "</h4></div>");
+            $(".yourcharacter").append("<div class = 'thumbnail'>" + selected[0].name + '<br>' + '<img src=' + selected[0].image + '>' + '<br><h4>Health: ' + selected[0].health + "</h4></div>");
 
        if (defender.health > 0) {
         selected[0].health = selected[0].health - defender.baseAttack;}//Counter-attack the user if they're still 
             else { 
             $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
-            resetReady = true;
+            resetReady;
             resetGame();   
             }
 
-     if (selected[0].health < 0) 
-     {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
-    gameOver()
-   }
+     if (selected[0].health < 0) {
+     
+     //confirm("You were defeated by " + defender.name + "! Would you like to play again?");
+    // if (confirm = true) {
+   gameisover = true;
+    gameOver()//  }
+     }
+   
 
      if (defendersRemaining === 0) {
         {$(".message").html("<p>OUT OF DEFENDERS! GAME OVER!!</p>");
          gameOver();}
-     }
-        }
-        )
-        }}
+     }})}}
 
         function resetGame() {
             if (resetReady === true) {
@@ -179,12 +181,27 @@ var defendersRemaining = 3;
         }}
 
         function gameOver() {
-            $(".enemycharacter").children().appendTo(".characters");
+            if (gameisover === true) {
+        var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
+        $(".restart").append(button);
+        $(".restart").on( "click", function() {
+           // $(".defendingcharacter").show();
+            $(".characters").append($(".thumbnails"));}
+        )}}
 
 
-
-        }
-
+    //   //  function gameOver(defenderselector) {
+    
+    //         var characters = $("<div class = 'col-lg-12 characters'>");
+    //         $(".container .row").append($(characters));
+    //         $(characters).append($(defenderselector));
+    //           //  $('.yourcharacter').insertAfter(".col-lg-12, .characters");
+    //         // $('.defendingchar').appendTo('.characters');
+    //         //  $('.enemiesavailable').appendTo(".characters");
+    //         $(button).hide();
+    //         startGame();
+    //         })
+    //        }
 
             setUpCharacterTab();
             initializeCharacter();
