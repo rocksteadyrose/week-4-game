@@ -1,271 +1,308 @@
-//PSEUDO CODE
-//CHOOSE YOUR CHARACTER OUT OF 4. CHARACTERS HAVE 3 ATTRIBUTES: Health Points, Attack Power and Counter Attack Power.
-//ANY OF THE CHARACTERS YOU DON'T CHOOSE BECOME YOUR ENEMIES THAT YOU CAN ATTACK
-//CLICK AN ENEMY TO ATTACK. 1 ATTRIBUTE: Counter Attack Power
-//IF YOU CLICK ATTACK WITHOUT PICKING ONE FIRST, IT WILL TELL YOU TO PICK A CHARACTER ["NO ENEMY HERE"]
-//ENEMIES MOVES TO ENEMIES AVAILABLE TO ATTACK AREA AND TURN RED
-//THEY TURN BLACK AND MOVE TO DEFENDER AREA
-//CLICK ATTACK TO FIGHT THEM
-//STATS TELL YOU HOW THE ATTACK WENT FOR YOUR CHARACTER AND THE ENEMY
-//ONCE YOU'RE DEFEATED, THE GAME IS OVER
-//IF YOU WIN, IT SAYS YOU HAVE DEFEATED [ENEMY]. YOU CAN CHOOSE TO FIGHT ANOTHER ENEMY
-//CLICK RESTART TO RESTART
-//EACH TIME YOU RESTART, ONE LESS ENEMY REMAINS
-//EACH TIME YOU RESTART AND PICK A NEW ENEMY, YOUR ATTACK POWER IS HIGHER. IT SLOWLY INCREASES IT
-//ONCE YOU DEFEAT THE LAST ENEMY, 'YOU WON! GAME OVER!'
-//CAN CHOOSE RESTART IF YOU WANT
 
-//START
-//ON CLICK
-//POINTS
-//RESET
-
-
-//VARIABLES
-$(document).ready(function() {
-
-var char;
-var characterChosen = false;
-var yourCharacter;
-var chosen = {};
-var defenderselector;
+var yourCharacter = [];
+var enemies = [];
+var defender = [];
+var hasCharacterBeenChosen = false;
 var enemyDefeated = false;
 var characterDefeated = false;
 var enemyChosen = false;
 var defenderChosen = false;
-var enemy;
-var defender = {};
+var characterChosen = false;
 
-var character = {
-       obiwan: 
-        {name: "Obi-Wan Kenobi", 
-        image: "<img class='characterclass' src='assets/images/obiwankenobi.jpg' width='150px' height='100px'>",
+$(document).ready(function() {
+
+    var characters = [
+        {
+        name: 'Obi-Wan Kenobi',
+        id: 0,
+        image: 'assets/images/obiwankenobi.jpg',
         health: 120,
         baseAttack: 8,
         attack: 8
-    },
-
-        luke:
-        {name: "Luke Skywalker",
-        image: "<img class='characterclass' src='assets/images/lukeskywalker.jpg' width='150px' height='100px'>",
+        },
+      
+        {
+        name: 'Luke Skywalker',
+        id: 1,
+        image: 'assets/images/lukeskywalker.jpg',
         health: 100,
         baseAttack: 5,
-        attack: 5},
-
-       darthsidious:
-        {name: "Darth Sidious",
-        image: "<img class='characterclass' src='assets/images/darthsidious.jpg' width='150px' height='100px'>",
+        attack: 5
+        },
+      
+        {
+        name: "Darth Sidious",
+        id: 2,
+        image: 'assets/images/darthsidious.jpg',
         health: 150,
         baseAttack: 20,
-        attack: 20},
-
-        darthmaul:
-        {name: "Darth Maul",
-        image: "<img class='characterclass' src='assets/images/darthmaul.jpg' width='150px' height='100px'>",
+        attack: 20
+        },
+        {
+        name: "Darth Maul",
+        id: 3,
+        image: 'assets/images/darthmaul.jpg',
         health: 180,
         baseAttack: 25,
-        attack: 25}
-};
-
-var obiwanimage = $(".characters");
-obiwanimage.append("<div class = 'thumbnail obiwan'>"+character.obiwan.name+"<br>"+character.obiwan.image+"<br><h4>Health: "+character.obiwan.health + "</h4></div>");
-var lukeimage = $(".characters");
-lukeimage.append("<div class = 'thumbnail lukesky'>"+character.luke.name+"<br>"+character.luke.image+"<br><h4>Health: "+character.luke.health+"</h4></div>");
-var darthsidiousimage = $(".characters");
-darthsidiousimage.append("<div class = 'thumbnail darthsidious'>"+character.darthsidious.name+"<br>"+character.darthsidious.image+"<br><h4>Health: "+character.darthsidious.health+"</h4></div>");
-var darthmaulimage = $(".characters");
-darthmaulimage.append("<div class = 'thumbnail darthmaul'>"+character.darthmaul.name+"<br>"+character.darthmaul.image+"<br><h4>Health: "+character.darthmaul.health+"</h4></div>");
-
-$('.characters').append(obiwanimage);
-$('.characters').append(lukeimage);
-$('.characters').append(darthsidiousimage);
-$('.characters').append(darthmaulimage);
-
-
-  // CLICK FOR INITIAL CHARACTER
-
-
-  
-  function startGame () {
-  
-  $(".thumbnail").on( "click", function() {
-    $(".yourcharacter").append($(this));
-    $(".yourcharacter").attr("class", "yourcharacter");
-    $(".characters").attr("class", "enemies"); //Move remaining characters by giving new attribute and then moving them to enemies section
-    $('.enemiesavailable').append($(".enemies"))
-    char = $(this);
-    chooseCharacter(char);
-    })
-}
-
-startGame ();
-
-  // CHOOSE CHARACTER
-  function chooseCharacter(char) {
-    $(char).addClass("characternondefender");
-
-    if (char.hasClass('thumbnail lukesky characternondefender'))
-    {$(char).addClass("chosencharacter");
-    chosen = character.luke;
-    }
- 
-    else if (char.hasClass('thumbnail darthmaul characternondefender'))
-    {chosen = character.darthmaul;
-    $(char).addClass("chosencharacter");
-    }
-
-    else if (char.hasClass('thumbnail darthsidious characternondefender'))
-    {chosen = character.darthsidious;
-    $(char).addClass("chosencharacter"); 
+        attack: 25
         }
-   
-    else {chosen = character.obiwan;
-    $(char).addClass("chosencharacter");
-    }
-    char; //what we've clicked on
-    characterChosen = true;
-    defenderChosen;
-    chosen;
-    chooseEnemy(char, chosen);
-    
- }
-
-
- 
-
-// CHOOSE ENEMY
-function chooseEnemy(char, chosen) {
-
-    //enemy = character;
-
-  //  if ($("div").children(".thumbnail .lukesky"))
-  //  {$(char).addClass("enemycharacter");
-  //      enemy = character.luke;
-  //  }
- 
-  //  if (char.hasClass('thumbnail darthmaul'))
-  //  {enemy = character.darthmaul;
-  //      $(char).addClass("enemycharacter");
-  //      }
-
-  //  if (char.hasClass('thumbnail darthsidious'))
- //   {enemy = character.darthsidious;
-  //      $(char).addClass("enemycharacter");
-  //      }
-   
- //   else
- //   {enemy = character.obiwan;
-  //  $(char).addClass("enemycharacter");
-    enemyChosen = true;
-
-    $(".thumbnail").on( "click", function() {
-        $('.defendersection').append($(this));
-        defenderselector = $(this);
-        $(".defendersection").attr("class", "defender");
-        chooseDefender(chosen, defender, defenderselector);})
-}
-
-
-
-//chooseDefender(defender, defenderselector, chosen);
-
-
-
-//CHOOSE DEFENDER
-
-
-    
-
-    function chooseDefender(chosen, defender, defenderselector) { 
-
-    defenderselector.addClass("defending");
-    defenderselector.removeClass("chosencharacter characternondefender");
+      ];
+      
+      function setUpCharacterTab() {
+      for(var i = 0; i < characters.length; i++) {
+        var characterDiv = $('<div>');
+        characterDiv.addClass('thumbnail');
+      
+        var characterName = characters[i].name;
+        var characterHealth = characters[i].health;
+        var characterImage = characters[i].image;
+        var characterId = characters[i].id;
+      
+        characterDiv.attr('character', characterName);
+        var characterIdCreate;
         
-        if (defenderselector.hasClass("thumbnail darthmaul defending"))
-        {
-        defender = character.darthmaul;
-        $(defenderselector).addClass("defendingchar");
-        }
+      
+        var characterTitle = $('<h3>');
+        characterTitle.text(characterName);
+        characterDiv.append(characterTitle);
+      
+        var characterHealthTitle = $('<h4>');
+        characterHealthTitle.text(characterHealth);
+        characterDiv.append(characterHealthTitle);
+      
+        var characterImageDiv = $('<div>');
+        var characterImg = $('<img>').attr('src', characterImage).width(150).height(150);
+      
+        characterImageDiv.html(characterImg);
+      
+        characterDiv.append(characterImageDiv);
+      
+        $(".characters").append(characterDiv);
+        $(".characters").attr('id', characterId);
+      }
+    }
 
-        else if (defenderselector.hasClass("thumbnail lukesky defending"))
-        {
-        defender = character.luke;
-        $(defenderselector).addClass("defendingchar");
-        }
-    
-        else if (defenderselector.hasClass("thumbnail darthsidious defending")) {
-        defender = character.darthsidious;
-        $(defenderselector).addClass("defendingchar");
-        }
+     function startGame() { 
+    if (characterChosen === false && enemyChosen === false && defenderChosen === false) {
+    $(".thumbnail").on( "click", function() {
+        characterChosen = true;
+    for (var i = 0; i < characters.length; i++) {
+    if (characters[i] = $(this)) {
+    $(".yourcharacter").append(characters[i]);
+    $(".yourcharacter").attr('character', characters[i].name);
+    console.log(characters[i]);
+    ;}}})}}
 
-        else 
-        {
-        defender = character.obiwan;
-        $(defenderselector).addClass("defendingchar");
-        }
+    function chooseEnemies() { 
+        enemyChosen = true;
+    $(".thumbnail").on( "click", function() {
+        for (var i = 0; i < characters.length; i++) {
+    $(".enemiesavailable").append($(".characters"));
+    (enemies).push(characters[i]);
+    chooseDefender()
+    }})}
 
+    function chooseDefender() { 
+        if (characterChosen && enemyChosen && defenderChosen === false) {        
+        $(".thumbnail").on( "click", function() {
+            for (var i = 0; i < characters.length; i++) {
+        $(".defendersection").append($(this));
+        defender = $(this);
+        console.log(defender);
         defenderChosen = true;
+            } } ) }}
 
-        defender;
+    setUpCharacterTab();
+    startGame();
+    chooseEnemies();
+    chooseDefender();
+      
+}); 
 
-        chosen;
-
-        points(chosen, defender, defenderselector);
-        }
+//   // CLICK FOR INITIAL CHARACTER
 
 
-            function points(chosen, defender, defenderselector) {
+  
+//   function startGame () {
+  
+//   $(".thumbnail").on( "click", function() {
+//     $(".yourcharacter").append($(this));
+//     $(".yourcharacter").attr("class", "yourcharacter");
+//     $(".characters").attr("class", "enemies"); //Move remaining characters by giving new attribute and then moving them to enemies section
+//     $('.enemiesavailable').append($(".enemies"))
+//     char = $(this);
+//     chooseCharacter(char);
+//     })
+// }
+
+// startGame ();
+
+//   // CHOOSE CHARACTER
+//   function chooseCharacter(char) {
+//     $(char).addClass("characternondefender");
+
+//     if (char.hasClass('thumbnail lukesky characternondefender'))
+//     {$(char).addClass("chosencharacter");
+//     chosen = character.luke;
+//     }
+ 
+//     else if (char.hasClass('thumbnail darthmaul characternondefender'))
+//     {chosen = character.darthmaul;
+//     $(char).addClass("chosencharacter");
+//     }
+
+//     else if (char.hasClass('thumbnail darthsidious characternondefender'))
+//     {chosen = character.darthsidious;
+//     $(char).addClass("chosencharacter"); 
+//         }
+   
+//     else {chosen = character.obiwan;
+//     $(char).addClass("chosencharacter");
+//     }
+//     char; //what we've clicked on
+//     characterChosen = true;
+//     defenderChosen;
+//     chosen;
+//     chooseEnemy(char, chosen);
+    
+//  }
+
+
+ 
+
+// // CHOOSE ENEMY
+// function chooseEnemy(char, chosen) {
+
+//     //enemy = character;
+
+//   //  if ($("div").children(".thumbnail .lukesky"))
+//   //  {$(char).addClass("enemycharacter");
+//   //      enemy = character.luke;
+//   //  }
+ 
+//   //  if (char.hasClass('thumbnail darthmaul'))
+//   //  {enemy = character.darthmaul;
+//   //      $(char).addClass("enemycharacter");
+//   //      }
+
+//   //  if (char.hasClass('thumbnail darthsidious'))
+//  //   {enemy = character.darthsidious;
+//   //      $(char).addClass("enemycharacter");
+//   //      }
+   
+//  //   else
+//  //   {enemy = character.obiwan;
+//   //  $(char).addClass("enemycharacter");
+//     enemyChosen = true;
+
+//     $(".thumbnail").on( "click", function() {
+//         $('.defendersection').append($(this));
+//         defenderselector = $(this);
+//         $(".defendersection").attr("class", "defender");
+//         chooseDefender(chosen, defender, defenderselector);})
+// }
+
+
+
+// //chooseDefender(defender, defenderselector, chosen);
+
+
+
+// //CHOOSE DEFENDER
+
+
+    
+
+//     function chooseDefender(chosen, defender, defenderselector) { 
+
+//     defenderselector.addClass("defending");
+//     defenderselector.removeClass("chosencharacter characternondefender");
+        
+//         if (defenderselector.hasClass("thumbnail darthmaul defending"))
+//         {
+//         defender = character.darthmaul;
+//         $(defenderselector).addClass("defendingchar");
+//         }
+
+//         else if (defenderselector.hasClass("thumbnail lukesky defending"))
+//         {
+//         defender = character.luke;
+//         $(defenderselector).addClass("defendingchar");
+//         }
+    
+//         else if (defenderselector.hasClass("thumbnail darthsidious defending")) {
+//         defender = character.darthsidious;
+//         $(defenderselector).addClass("defendingchar");
+//         }
+
+//         else 
+//         {
+//         defender = character.obiwan;
+//         $(defenderselector).addClass("defendingchar");
+//         }
+
+//         defenderChosen = true;
+
+//         defender;
+
+//         chosen;
+
+//         points(chosen, defender, defenderselector);
+//         }
+
+
+//             function points(chosen, defender, defenderselector) {
                     
-                    $(".attackButton").on( "click", function() {
+//                     $(".attackButton").on( "click", function() {
 
-                    if (characterChosen && defenderChosen) {
-                    defender.health = defender.health - chosen.attack;// User attacks the defender and decreases the defender's health points
-                    $(".defendingchar").children().html("Health: " + defender.health);
+//                     if (characterChosen && defenderChosen) {
+//                     defender.health = defender.health - chosen.attack;// User attacks the defender and decreases the defender's health points
+//                     $(".defendingchar").children().html("Health: " + defender.health);
                     
-                    chosen.attack = chosen.attack + chosen.baseAttack;// User's attack power increases
+//                     chosen.attack = chosen.attack + chosen.baseAttack;// User's attack power increases
 
-                    $(".message").html("<b>You attacked </b>" + defender.name + " for " + chosen.attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
+//                     $(".message").html("<b>You attacked </b>" + defender.name + " for " + chosen.attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
                     
-                    $(".yourcharacter").empty();
-                    $(".yourcharacter").append("<div class = 'thumbnail'>" + chosen.name + '<br>' + chosen.image + '<br><h4>Health: ' + chosen.health + "</h4></div>");
+//                     $(".yourcharacter").empty();
+//                     $(".yourcharacter").append("<div class = 'thumbnail'>" + chosen.name + '<br>' + chosen.image + '<br><h4>Health: ' + chosen.health + "</h4></div>");
 
-                    if (defender.health > 0) {
-                        chosen.health = chosen.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
-                    else { 
-                    $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
-                    reset(chosen, defenderselector);
-                    $(".defendingchar").hide();
-                    }
+//                     if (defender.health > 0) {
+//                         chosen.health = chosen.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
+//                     else { 
+//                     $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
+//                     reset(chosen, defenderselector);
+//                     $(".defendingchar").hide();
+//                     }
 
-                    if (chosen.health < 0) 
-                    {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
-                    gameOver(defenderselector);}
+//                     if (chosen.health < 0) 
+//                     {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
+//                     gameOver(defenderselector);}
                     
-                    }})}
+//                     }})}
 
-                    function reset(chosen, defenderselector) {
-                        $(".thumbnail").on( "click", function() {
-                        $(defenderselector).removeClass("defendingchar defending");
-                        ($(this)).appendTo('.defender');
-                        defenderselector = $(this);
-                           // $(".defendersection").attr("class", "defender");
-                            chooseDefender(chosen, defender, defenderselector);})}
+//                     function reset(chosen, defenderselector) {
+//                         $(".thumbnail").on( "click", function() {
+//                         $(defenderselector).removeClass("defendingchar defending");
+//                         ($(this)).appendTo('.defender');
+//                         defenderselector = $(this);
+//                            // $(".defendersection").attr("class", "defender");
+//                             chooseDefender(chosen, defender, defenderselector);})}
 
-                   function gameOver(defenderselector) {
-                    var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
-                    $(".restart").append(button);
-                    $(".restart").on( "click", function() {
-                    var characters = $("<div class = 'col-lg-12 characters'>");
-                    $(".container .row").append($(characters));
-                    $(characters).append($(defenderselector));
-                      //  $('.yourcharacter').insertAfter(".col-lg-12, .characters");
-                    // $('.defendingchar').appendTo('.characters');
-                    //  $('.enemiesavailable').appendTo(".characters");
-                    $(button).hide();
-                    startGame();
-                    })
-                   }
-});
+//                    function gameOver(defenderselector) {
+//                     var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
+//                     $(".restart").append(button);
+//                     $(".restart").on( "click", function() {
+//                     var characters = $("<div class = 'col-lg-12 characters'>");
+//                     $(".container .row").append($(characters));
+//                     $(characters).append($(defenderselector));
+//                       //  $('.yourcharacter').insertAfter(".col-lg-12, .characters");
+//                     // $('.defendingchar').appendTo('.characters');
+//                     //  $('.enemiesavailable').appendTo(".characters");
+//                     $(button).hide();
+//                     startGame();
+//                     })
+//                    }
+// });
 
     
 
