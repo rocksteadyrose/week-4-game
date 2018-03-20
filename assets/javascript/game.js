@@ -48,6 +48,7 @@ var defenderChosen = false;
 var characterChosen = false;
 var character;
 var selected = [];
+var finalArray = [];
 var charId;
 
 
@@ -94,7 +95,6 @@ var charId;
             }
         
      function startGame(character, charIdcharacter) { 
-        console.log(character);
         if (characterChosen === false && enemyChosen === false && defenderChosen === false) {
         $(".thumbnail").on( "click", function() {
             $(".yourcharacter").append($(this));
@@ -111,60 +111,72 @@ var charId;
                 $(".defendersection").append($(this));
                 $(".defendersection").attr('class', 'defendingcharacter');}
             )} 
-            console.log(character);
             initializeDefender(character);
         }
 
             function initializeDefender(character) {
-            // var charIddefender = parseInt($(".thumbnail").attr("id"));
-            // defender = characters[charIddefender];
-            // console.log(defender);
+                $(".thumbnail").on( "click", function() {
+            var charIddefender = parseInt($(this).attr("id"));
+            defender = characters[charIddefender];
+            defenderChosen = true;
+        })
+            points(defender, character);
         }
 
-            setUpCharacterTab();
+
+    function points(defender, character) {
+               
+        if (defenderChosen) {
+            console.log(defender);
+            console.log(character);
+             // defender.health = defender.health - character.attack;// Character attacks the defender and decreases the defender's health points
+            // $(".attackButton").on( "click", function() {
+            //     if (characterChosen && defenderChosen) {
+            // $(".defendingcharacter").children().html("Health: " + defender.health);
+            // defender;
+            // character.attack = character.attack + character.baseAttack;// User's attack power increases
+
+            // $(".message").html("<b>You attacked </b>" + defender.name + " for " + character.attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
+            
+            // $(".yourcharacter").empty();
+            // $(".yourcharacter").append("<div class = 'thumbnail'>" + character.name + '<br>' + character.image + '<br><h4>Health: ' + character.health + "</h4></div>");
+
+            // if (defender.health > 0) {
+            //     character.health = character.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
+            // else { 
+            // $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
+            // reset(character);
+            // $(".defendersection").hide();
+            // }
+
+            // if (character.health < 0) 
+            // {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
+            // gameOver()
+            
+
+        }}
+
+
+
+
+
+
+
+
+
+                setUpCharacterTab();
                     initializeCharacter();
                     startGame();
                     selectDefender();
-           initializeDefender();
-                  // chooseEnemies();
-                   // chooseDefender();
+                    points();
+            initializeDefender();
 
 
         });
 
-        //console.log(defender);
-     //   if(characters.id !== charIddefender) {
-         //   defender.push(character);}
 
-        // if (characterChosen && enemyChosen && defenderChosen === false) {
+   
 
-//   function points(character, defender) {            
-    
-//         defender; character;
-
-//     defender.health = defender.health - character.attack;// User attacks the defender and decreases the defender's health points
-//     $(".attackButton").on( "click", function() {
-//         if (characterChosen && defenderChosen) {
-//     $(".defendingcharacter").children().html("Health: " + defender.health);
-//     defender;
-//     character.attack = character.attack + character.baseAttack;// User's attack power increases
-
-//     $(".message").html("<b>You attacked </b>" + defender.name + " for " + character.attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
-    
-//     $(".yourcharacter").empty();
-//     $(".yourcharacter").append("<div class = 'thumbnail'>" + character.name + '<br>' + character.image + '<br><h4>Health: ' + character.health + "</h4></div>");
-
-//     if (defender.health > 0) {
-//         character.health = character.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
-//     else { 
-//     $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
-//     reset(character);
-//     $(".defendersection").hide();
-//     }
-
-//     if (character.health < 0) 
-//     {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
-//     gameOver();} }})}
 
             // function reset() {
             //     $(".thumbnail").on( "click", function() {
