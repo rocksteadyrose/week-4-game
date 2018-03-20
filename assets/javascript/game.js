@@ -7,7 +7,7 @@ var characterDefeated = false;
 var enemyChosen = false;
 var defenderChosen = false;
 var characterChosen = false;
-var character = null;
+var character = [];
 var selected = [];
 var charId;
 
@@ -50,8 +50,6 @@ var charId;
         }
       ];
 
-      
-      $(document).ready(function() {
 
       function setUpCharacterTab() {
       for(var i = 0; i < characters.length; i++) {
@@ -85,22 +83,26 @@ var charId;
       }
     }
 
-    function initializeCharacter() {
+    function initializeCharacter(character) {
         $(".thumbnail").on( "click", function() {
-        var charId = parseInt($(this).attr("id"));
-        character = characters[charId];} )}
+        var charIdcharacter = parseInt($(this).attr("id"));
+        character = characters[charIdcharacter];
+        console.log(character);
+        startGame(character, charIdcharacter)
+    } )}
         
 
-     function startGame() { 
+     function startGame(character, charIdcharacter) { 
         if (characterChosen === false && enemyChosen === false && defenderChosen === false) {
-            characters;
-        console.log(characters);
         $(".thumbnail").on( "click", function() {
             characterChosen = true;
         for (var i = 0; i < characters.length; i++) {
-            if (characters[i] = $(this)) {
-            $(".yourcharacter").append(characters[i]);
-            $(".yourcharacter").attr('class', 'yourcharacter');}}})}}
+            $(".yourcharacter").append($(this));
+            $(".yourcharacter").attr('class', 'yourcharacter')
+            chooseEnemies(character);}
+        if(characters.id !== charIdcharacter) {
+                defender.push(character);}})}}
+            
            // {$.each(selected, function(index, character) {
              //   if(character.id !== charId) {
                 //    defender.push(character);
@@ -108,27 +110,28 @@ var charId;
               //  } else {
                  //   (chosen).push(character);
                  //   console.log(chosen);
-                
     
-    function chooseEnemies() { 
+    function chooseEnemies(character) { 
         enemyChosen = true;
     $(".thumbnail").on( "click", function() {
         for (var i = 0; i < characters.length; i++) {
     $(".enemiesavailable").append($(".characters"));
     $(".characters").attr('class', 'enemycharacter');
     (enemies).push(character);
-   chooseDefender()
+   chooseDefender(character);
      } } )  }     
 
-    function chooseDefender() { 
+
+    function chooseDefender(character) { 
         if (characterChosen && enemyChosen && defenderChosen === false) {        
         $(".thumbnail").on( "click", function() {
-            for (var i = 0; i < characters.length; i++) {
+            defenderChosen = true;
+            var charIddefender = parseInt($(this).attr("id"));
+            defender = characters[charIddefender];
+                console.log(defender);
         $(".defendersection").append($(this));
         $(".defendersection").attr('class', 'defendingcharacter');
-        console.log(defender);
-        defenderChosen = true;
-            } } ) }}
+        ;})}}
 
     function points() {
         $(".attackButton").on( "click", function() {
@@ -175,7 +178,7 @@ var charId;
     chooseDefender();
     points();
       
-}); 
+
 
 //   // CLICK FOR INITIAL CHARACTER
 
