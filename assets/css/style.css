@@ -2,18 +2,49 @@
     box-sizing: border-box;
   }
 
+  @font-face {
+    font-family: "waltograph";
+    src: url("fonts/waltograph42.ttf");
+    font-weight: normal;
+}
+
 body {
-    background-color: rgb(121, 121, 250);
+    background-image: url('../images/background.jpg');
+    color: rgb(130, 28, 247);
+    height: 100vh;
+
+}
+
+.container {
+    height: 100vh;
+    margin: 0 auto;
+}
+
+h1 {
+    font-family: "waltograph", Arial, Helvetica, sans-serif;
+    font-size: 60px;
+    color: white;
+}
+
+.message {
+    color: white;
+}
+
+.panel-title h3 {
+    color: white;
+    font-family: "waltograph", Arial, Helvetica, sans-serif;
+
 }
 
 .characters {
 	display: flex;
     flex-direction: row;
-    /*background-color: white;*/
+    padding-right: 30px;
+        /*background-color: white;*/
 }
 
 .yourcharacter {
-    max-width: 100%;
+    width: 200px;
 	display: flex;
     flex-direction: row;
 }
@@ -39,7 +70,7 @@ body {
 }
 
 .defendingcharacter {
-    max-width: 100%;
+    max-width: 200px;
 	display: flex;
     flex-direction: row;
 }
