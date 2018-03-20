@@ -1,4 +1,4 @@
-var chosen;
+var chosen = [];
 var enemies = [];
 var defender = [];
 var hasCharacterBeenChosen = false;
@@ -7,13 +7,16 @@ var characterDefeated = false;
 var enemyChosen = false;
 var defenderChosen = false;
 var characterChosen = false;
-var character;
+var character = null;
+var selected = [];
+var charId;
 
 
 
     var characters = [
         {
         name: 'Obi-Wan Kenobi',
+        id: 0,
         image: 'assets/images/obiwankenobi.jpg',
         health: 120,
         baseAttack: 8,
@@ -22,6 +25,7 @@ var character;
       
         {
         name: 'Luke Skywalker',
+        id: 1,
         image: 'assets/images/lukeskywalker.jpg',
         health: 100,
         baseAttack: 5,
@@ -30,6 +34,7 @@ var character;
       
         {
         name: "Darth Sidious",
+        id: 2,
         image: 'assets/images/darthsidious.jpg',
         health: 150,
         baseAttack: 20,
@@ -37,19 +42,23 @@ var character;
         },
         {
         name: "Darth Maul",
+        id: 3,
         image: 'assets/images/darthmaul.jpg',
         health: 180,
         baseAttack: 25,
         attack: 25
         }
       ];
+
       
       $(document).ready(function() {
 
-      function setUpCharacterTab(characterName) {
+      function setUpCharacterTab() {
       for(var i = 0; i < characters.length; i++) {
         var characterDiv = $('<div>');
         characterDiv.addClass('thumbnail');
+        var charIDgive = characters[i].id;
+        characterDiv.attr('id', charIDgive);
       
         characterName = characters[i].name;
         var characterHealth = characters[i].health;
@@ -64,43 +73,52 @@ var character;
         var characterHealthTitle = $('<h4>');
         characterHealthTitle.text(characterHealth);
         characterDiv.append(characterHealthTitle);
-      
+        
         var characterImageDiv = $('<div>');
         var characterImg = $('<img>').attr('src', characterImage).width(150).height(150);
-        character = characters[i];
         characterImageDiv.html(characterImg);
-      
+        
         characterDiv.append(characterImageDiv);
-      
+       // character = characters[i];
         $(".characters").append(characterDiv);
      //   characterImg.attr('id', characterId);
-
-        startGame(character);
       }
     }
 
-     function startGame(character) { 
-    if (characterChosen === false && enemyChosen === false && defenderChosen === false) {
-    $(".thumbnail").on( "click", function() {
-        characterChosen = true;
-    for (var i = 0; i < characters.length; i++) {
-    if (characters[i] = $(this)) {
-    characterName = $(this);
-    console.log(characterName);
-    $(".yourcharacter").append(characters[i]);
-    $(".yourcharacter").attr('class', 'yourcharacter');
-    
-    ;}}})}}
+    function initializeCharacter() {
+        $(".thumbnail").on( "click", function() {
+        var charId = parseInt($(this).attr("id"));
+        character = characters[charId];} )}
+        
 
+     function startGame() { 
+        if (characterChosen === false && enemyChosen === false && defenderChosen === false) {
+            characters;
+        console.log(characters);
+        $(".thumbnail").on( "click", function() {
+            characterChosen = true;
+        for (var i = 0; i < characters.length; i++) {
+            if (characters[i] = $(this)) {
+            $(".yourcharacter").append(characters[i]);
+            $(".yourcharacter").attr('class', 'yourcharacter');}}})}}
+           // {$.each(selected, function(index, character) {
+             //   if(character.id !== charId) {
+                //    defender.push(character);
+                 //   console.log(defender);
+              //  } else {
+                 //   (chosen).push(character);
+                 //   console.log(chosen);
+                
+    
     function chooseEnemies() { 
         enemyChosen = true;
     $(".thumbnail").on( "click", function() {
         for (var i = 0; i < characters.length; i++) {
     $(".enemiesavailable").append($(".characters"));
     $(".characters").attr('class', 'enemycharacter');
-    (enemies).push(characters[i]);
+    (enemies).push(character);
    chooseDefender()
-    }})}
+     } } )  }     
 
     function chooseDefender() { 
         if (characterChosen && enemyChosen && defenderChosen === false) {        
@@ -108,7 +126,6 @@ var character;
             for (var i = 0; i < characters.length; i++) {
         $(".defendersection").append($(this));
         $(".defendersection").attr('class', 'defendingcharacter');
-        defender = $(this);
         console.log(defender);
         defenderChosen = true;
             } } ) }}
@@ -152,6 +169,7 @@ var character;
     
 
     setUpCharacterTab();
+    initializeCharacter();
     startGame();
     chooseEnemies();
     chooseDefender();
