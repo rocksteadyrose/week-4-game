@@ -1,16 +1,3 @@
-var chosen = [];
-var enemies = [];
-var defender = [];
-var hasCharacterBeenChosen = false;
-var enemyDefeated = false;
-var characterDefeated = false;
-var enemyChosen = false;
-var defenderChosen = false;
-var characterChosen = false;
-var character = [];
-var selected = [];
-var charId;
-
 
 
     var characters = [
@@ -50,6 +37,22 @@ var charId;
         }
       ];
 
+var chosen;
+var enemies;
+var defender = [];
+var hasCharacterBeenChosen = false;
+var enemyDefeated = false;
+var characterDefeated = false;
+var enemyChosen = false;
+var defenderChosen = false;
+var characterChosen = false;
+var character;
+var selected = [];
+var charId;
+
+
+
+ $(document).ready(function() {
 
       function setUpCharacterTab() {
       for(var i = 0; i < characters.length; i++) {
@@ -77,308 +80,99 @@ var charId;
         characterImageDiv.html(characterImg);
         
         characterDiv.append(characterImageDiv);
-       // character = characters[i];
         $(".characters").append(characterDiv);
-     //   characterImg.attr('id', characterId);
       }
     }
 
-    function initializeCharacter(character) {
+    function initializeCharacter() {
         $(".thumbnail").on( "click", function() {
         var charIdcharacter = parseInt($(this).attr("id"));
         character = characters[charIdcharacter];
-        console.log(character);
-        startGame(character, charIdcharacter)
-    } )}
+        character;
+        startGame(character, charIdcharacter);})
         
-
+            }
+        
      function startGame(character, charIdcharacter) { 
+        console.log(character);
         if (characterChosen === false && enemyChosen === false && defenderChosen === false) {
         $(".thumbnail").on( "click", function() {
-            characterChosen = true;
-        for (var i = 0; i < characters.length; i++) {
             $(".yourcharacter").append($(this));
             $(".yourcharacter").attr('class', 'yourcharacter')
-            chooseEnemies(character);}
-        if(characters.id !== charIdcharacter) {
-                defender.push(character);}})}}
-            
-           // {$.each(selected, function(index, character) {
-             //   if(character.id !== charId) {
-                //    defender.push(character);
-                 //   console.log(defender);
-              //  } else {
-                 //   (chosen).push(character);
-                 //   console.log(chosen);
+            $(".enemiesavailable").append($(".characters"));
+            $(".characters").attr('class', 'enemycharacter');
+            enemyChosen = true;
+            selectDefender(character, charIdcharacter);
+           })}}
+
+        function selectDefender(character, charIdcharacter) {
+            if (enemyChosen === true) {
+            $(".thumbnail").on( "click", function() {
+                $(".defendersection").append($(this));
+                $(".defendersection").attr('class', 'defendingcharacter');}
+            )} 
+            console.log(character);
+            initializeDefender(character);
+        }
+
+            function initializeDefender(character) {
+            // var charIddefender = parseInt($(".thumbnail").attr("id"));
+            // defender = characters[charIddefender];
+            // console.log(defender);
+        }
+
+            setUpCharacterTab();
+                    initializeCharacter();
+                    startGame();
+                    selectDefender();
+           initializeDefender();
+                  // chooseEnemies();
+                   // chooseDefender();
+
+
+        });
+
+        //console.log(defender);
+     //   if(characters.id !== charIddefender) {
+         //   defender.push(character);}
+
+        // if (characterChosen && enemyChosen && defenderChosen === false) {
+
+//   function points(character, defender) {            
     
-    function chooseEnemies(character) { 
-        enemyChosen = true;
-    $(".thumbnail").on( "click", function() {
-        for (var i = 0; i < characters.length; i++) {
-    $(".enemiesavailable").append($(".characters"));
-    $(".characters").attr('class', 'enemycharacter');
-    (enemies).push(character);
-   chooseDefender(character);
-     } } )  }     
+//         defender; character;
 
+//     defender.health = defender.health - character.attack;// User attacks the defender and decreases the defender's health points
+//     $(".attackButton").on( "click", function() {
+//         if (characterChosen && defenderChosen) {
+//     $(".defendingcharacter").children().html("Health: " + defender.health);
+//     defender;
+//     character.attack = character.attack + character.baseAttack;// User's attack power increases
 
-    function chooseDefender(character) { 
-        if (characterChosen && enemyChosen && defenderChosen === false) {        
-        $(".thumbnail").on( "click", function() {
-            defenderChosen = true;
-            var charIddefender = parseInt($(this).attr("id"));
-            defender = characters[charIddefender];
-                console.log(defender);
-        $(".defendersection").append($(this));
-        $(".defendersection").attr('class', 'defendingcharacter');
-        ;})}}
-
-    function points() {
-        $(".attackButton").on( "click", function() {
-
-        if (characterChosen && defenderChosen) {
-        defender.health = defender.health - chosen.attack;// User attacks the defender and decreases the defender's health points
-            $(".defendingcharacter").children().html("Health: " + defender.health);
-            
-            chosen.attack = chosen.attack + chosen.baseAttack;// User's attack power increases
-
-            $(".message").html("<b>You attacked </b>" + defender.name + " for " + chosen.attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
-            
-            $(".yourcharacter").empty();
-            $(".yourcharacter").append("<div class = 'thumbnail'>" + chosen.name + '<br>' + chosen.image + '<br><h4>Health: ' + chosen.health + "</h4></div>");
-
-            if (defender.health > 0) {
-                chosen.health = chosen.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
-            else { 
-            $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
-            reset(chosen, defenderselector);
-            $(".defendingchar").hide();
-            }
-
-            if (chosen.health < 0) 
-            {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
-            gameOver(defenderselector);}
-            
-            }})}
-
-            function reset(chosen, defenderselector) {
-                $(".thumbnail").on( "click", function() {
-                $(defenderselector).removeClass("defendingchar defending");
-                ($(this)).appendTo('.defender');
-                defenderselector = $(this);
-                   // $(".defendersection").attr("class", "defender");
-                    chooseDefender(chosen, defender, defenderselector);})}
-
+//     $(".message").html("<b>You attacked </b>" + defender.name + " for " + character.attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
     
+//     $(".yourcharacter").empty();
+//     $(".yourcharacter").append("<div class = 'thumbnail'>" + character.name + '<br>' + character.image + '<br><h4>Health: ' + character.health + "</h4></div>");
 
-    setUpCharacterTab();
-    initializeCharacter();
-    startGame();
-    chooseEnemies();
-    chooseDefender();
-    points();
-      
-
-
-//   // CLICK FOR INITIAL CHARACTER
-
-
-  
-//   function startGame () {
-  
-//   $(".thumbnail").on( "click", function() {
-//     $(".yourcharacter").append($(this));
-//     $(".yourcharacter").attr("class", "yourcharacter");
-//     $(".characters").attr("class", "enemies"); //Move remaining characters by giving new attribute and then moving them to enemies section
-//     $('.enemiesavailable').append($(".enemies"))
-//     char = $(this);
-//     chooseCharacter(char);
-//     })
-// }
-
-// startGame ();
-
-//   // CHOOSE CHARACTER
-//   function chooseCharacter(char) {
-//     $(char).addClass("characternondefender");
-
-//     if (char.hasClass('thumbnail lukesky characternondefender'))
-//     {$(char).addClass("chosencharacter");
-//     chosen = character.luke;
-//     }
- 
-//     else if (char.hasClass('thumbnail darthmaul characternondefender'))
-//     {chosen = character.darthmaul;
-//     $(char).addClass("chosencharacter");
+//     if (defender.health > 0) {
+//         character.health = character.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
+//     else { 
+//     $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
+//     reset(character);
+//     $(".defendersection").hide();
 //     }
 
-//     else if (char.hasClass('thumbnail darthsidious characternondefender'))
-//     {chosen = character.darthsidious;
-//     $(char).addClass("chosencharacter"); 
-//         }
-   
-//     else {chosen = character.obiwan;
-//     $(char).addClass("chosencharacter");
-//     }
-//     char; //what we've clicked on
-//     characterChosen = true;
-//     defenderChosen;
-//     chosen;
-//     chooseEnemy(char, chosen);
-    
-//  }
+//     if (character.health < 0) 
+//     {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
+//     gameOver();} }})}
+
+            // function reset() {
+            //     $(".thumbnail").on( "click", function() {
+            //     $(defenderselector).removeClass("defendingchar defending");
+            //     ($(this)).appendTo('.defender');
+            //     defenderselector = $(this);
+            //        // $(".defendersection").attr("class", "defender");
+            //         chooseDefender(character, defender); })}
 
 
- 
-
-// // CHOOSE ENEMY
-// function chooseEnemy(char, chosen) {
-
-//     //enemy = character;
-
-//   //  if ($("div").children(".thumbnail .lukesky"))
-//   //  {$(char).addClass("enemycharacter");
-//   //      enemy = character.luke;
-//   //  }
- 
-//   //  if (char.hasClass('thumbnail darthmaul'))
-//   //  {enemy = character.darthmaul;
-//   //      $(char).addClass("enemycharacter");
-//   //      }
-
-//   //  if (char.hasClass('thumbnail darthsidious'))
-//  //   {enemy = character.darthsidious;
-//   //      $(char).addClass("enemycharacter");
-//   //      }
-   
-//  //   else
-//  //   {enemy = character.obiwan;
-//   //  $(char).addClass("enemycharacter");
-//     enemyChosen = true;
-
-//     $(".thumbnail").on( "click", function() {
-//         $('.defendersection').append($(this));
-//         defenderselector = $(this);
-//         $(".defendersection").attr("class", "defender");
-//         chooseDefender(chosen, defender, defenderselector);})
-// }
-
-
-
-// //chooseDefender(defender, defenderselector, chosen);
-
-
-
-// //CHOOSE DEFENDER
-
-
-    
-
-//     function chooseDefender(chosen, defender, defenderselector) { 
-
-//     defenderselector.addClass("defending");
-//     defenderselector.removeClass("chosencharacter characternondefender");
-        
-//         if (defenderselector.hasClass("thumbnail darthmaul defending"))
-//         {
-//         defender = character.darthmaul;
-//         $(defenderselector).addClass("defendingchar");
-//         }
-
-//         else if (defenderselector.hasClass("thumbnail lukesky defending"))
-//         {
-//         defender = character.luke;
-//         $(defenderselector).addClass("defendingchar");
-//         }
-    
-//         else if (defenderselector.hasClass("thumbnail darthsidious defending")) {
-//         defender = character.darthsidious;
-//         $(defenderselector).addClass("defendingchar");
-//         }
-
-//         else 
-//         {
-//         defender = character.obiwan;
-//         $(defenderselector).addClass("defendingchar");
-//         }
-
-//         defenderChosen = true;
-
-//         defender;
-
-//         chosen;
-
-//         points(chosen, defender, defenderselector);
-//         }
-
-
-//             function points(chosen, defender, defenderselector) {
-                    
-//                     $(".attackButton").on( "click", function() {
-
-//                     if (characterChosen && defenderChosen) {
-//                     defender.health = defender.health - chosen.attack;// User attacks the defender and decreases the defender's health points
-//                     $(".defendingchar").children().html("Health: " + defender.health);
-                    
-//                     chosen.attack = chosen.attack + chosen.baseAttack;// User's attack power increases
-
-//                     $(".message").html("<b>You attacked </b>" + defender.name + " for " + chosen.attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
-                    
-//                     $(".yourcharacter").empty();
-//                     $(".yourcharacter").append("<div class = 'thumbnail'>" + chosen.name + '<br>' + chosen.image + '<br><h4>Health: ' + chosen.health + "</h4></div>");
-
-//                     if (defender.health > 0) {
-//                         chosen.health = chosen.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
-//                     else { 
-//                     $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
-//                     reset(chosen, defenderselector);
-//                     $(".defendingchar").hide();
-//                     }
-
-//                     if (chosen.health < 0) 
-//                     {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
-//                     gameOver(defenderselector);}
-                    
-//                     }})}
-
-//                     function reset(chosen, defenderselector) {
-//                         $(".thumbnail").on( "click", function() {
-//                         $(defenderselector).removeClass("defendingchar defending");
-//                         ($(this)).appendTo('.defender');
-//                         defenderselector = $(this);
-//                            // $(".defendersection").attr("class", "defender");
-//                             chooseDefender(chosen, defender, defenderselector);})}
-
-//                    function gameOver(defenderselector) {
-//                     var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
-//                     $(".restart").append(button);
-//                     $(".restart").on( "click", function() {
-//                     var characters = $("<div class = 'col-lg-12 characters'>");
-//                     $(".container .row").append($(characters));
-//                     $(characters).append($(defenderselector));
-//                       //  $('.yourcharacter').insertAfter(".col-lg-12, .characters");
-//                     // $('.defendingchar').appendTo('.characters');
-//                     //  $('.enemiesavailable').appendTo(".characters");
-//                     $(button).hide();
-//                     startGame();
-//                     })
-//                    }
-// });
-
-    
-
-        
-
-
-
-        
-
-
-  
-
-                
-
-            
-                         
-                    
-
+            //         
