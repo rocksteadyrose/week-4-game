@@ -39,6 +39,7 @@
 
 var chosen;
 var enemies;
+var resetReady = false;
 var defender = [];
 var hasCharacterBeenChosen = false;
 var enemyDefeated = false;
@@ -50,6 +51,7 @@ var character;
 var selected = [];
 var finalArray = [];
 var charId;
+var defendersRemaining = 3;
 
 
 
@@ -91,7 +93,6 @@ var charId;
         character = characters[charIdcharacter];
         selected.push(character);
         selected.attack;
-        console.log(selected);
         startGame(character, charIdcharacter);})
             }
         
@@ -128,79 +129,72 @@ var charId;
     function points(defender, character) {
                
         if (defenderChosen) {
-            console.log(defender);
+            console.log(defendersRemaining);
             $(".attackButton").on( "click", function() {
              defender.health = defender.health - selected[0].attack;// Character attacks the defender and decreases the defender's health points
-             console.log(defender.health);
             // 
             //     if (characterChosen && defenderChosen) {
             $(".defendingcharacter").children().html("Health: " + defender.health);
             // defender;
             selected[0].attack = selected[0].attack + selected[0].baseAttack;// User's attack power increases
-            console.log(selected[0].attack);
 
             $(".message").html("<b>You attacked </b>" + defender.name + " for " + selected[0].attack + " damage. " + defender.name + " attacked you back for " + defender.baseAttack + " damage.");
             
             $(".yourcharacter").empty();
             $(".yourcharacter").append("<div class = 'thumbnail'>" + selected[0].name + '<br>' + selected[0].image + '<br><h4>Health: ' + selected[0].health + "</h4></div>");
 
-            if (defender.health > 0) {
-            character[0].health = character.health - defender.baseAttack;}//Counter-attack the user if they're still alive:
+       if (defender.health > 0) {
+        selected[0].health = selected[0].health - defender.baseAttack;}//Counter-attack the user if they're still 
             else { 
             $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
-            reset();
-            $(".defendersection").hide();
+            resetReady = true;
+            resetGame();   
             }
 
-            if (selecter[0].health < 0) 
-            {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
-            gameOver()
-            }
+     if (selected[0].health < 0) 
+     {$(".message").html("<p>You were defeated by " + defender.name + ". GAME OVER!!</p>");
+    gameOver()
+   }
+
+     if (defendersRemaining === 0) {
+        {$(".message").html("<p>OUT OF DEFENDERS! GAME OVER!!</p>");
+         gameOver();}
+     }
         }
         )
         }}
 
-        function reset() {
-        $(".enemycharacter").children().appendTo(characterDiv);
-
-        }
+        function resetGame() {
+            if (resetReady === true) {
+            $(".thumbnail").on( "click", function() {
+                $(".defendingcharacter > .thumbnail").remove();
+                $(".defendingcharacter").append($(this));
+                $(".defendingcharacter").show();
+                $(".defendersection").attr('class', 'defendingcharacter');
+                charIddefender = parseInt($(this).attr("id"));
+                defender = characters[charIddefender];
+                defendersRemaining--;
+            }) 
+            points(defender);
+        }}
 
         function gameOver() {
+            $(".enemycharacter").children().appendTo(".characters");
+
 
 
         }
-
- // function reset() {
-            //     
-            //     $(defenderselector).removeClass("defendingchar defending");
-            //     ($(this)).appendTo('.defender');
-            //     defenderselector = $(this);
-            //        // $(".defendersection").attr("class", "defender");
-            //         chooseDefender(character, defender); })}
-
-
-
-
-
 
 
             setUpCharacterTab();
             initializeCharacter();
             startGame();
+            initializeDefender();
             selectDefender();
             points();
-            initializeDefender();
-            reset();
+            resetGame();
             gameOver();
 
 
         });
 
-
-   
-
-
-           
-
-
-            //         
