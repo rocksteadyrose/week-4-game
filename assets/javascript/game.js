@@ -85,17 +85,25 @@ var defendersRemaining = 3;
         
         characterDiv.append(characterImageDiv);
         $(".characters").append(characterDiv);
+
+        $(".restartButton").hide();
       }
     }
 
     function initializeCharacter() {
         $(".thumbnail").on( "click", function() {
         var charIdcharacter = parseInt($(this).attr("id"));
+        console.log(charIdcharacter);
         character = characters[charIdcharacter];
-        selected.push(character);
+        if(selected.length === 0){
+            if(selected.length === 0){
+                selected.push(character)}
+                else {}
+        }
         selected.attack;
-        startGame(character, charIdcharacter);})
-            }
+        startGame(character, charIdcharacter);
+        })
+    }
         
      function startGame(character, charIdcharacter) { 
         if (characterChosen === false && enemyChosen === false && defenderChosen === false) {
@@ -107,6 +115,8 @@ var defendersRemaining = 3;
             enemyChosen = true;
             selectDefender(character, charIdcharacter);
            })}}
+
+
 
         function selectDefender(character, charIdcharacter) {
             if (enemyChosen === true) {
@@ -131,9 +141,15 @@ var defendersRemaining = 3;
                
         if (defenderChosen) {
             $(".attackButton").on( "click", function() {
+
              defender.health = defender.health - selected[0].attack;// Character attacks the defender and decreases the defender's health points
             // 
             //     if (characterChosen && defenderChosen) {
+
+                selected[0];
+                defender;
+                console.log(selected[0]);
+                console.log(defender);
             $(".defendingcharacter").empty();
             $(".defendingcharacter").append("<div class = 'thumbnail'" + '<h1>' + defender.name + '<br>' + defender.health + '</h1>' + '<img src=' + defender.image + '>'); 
             // defender; 
@@ -146,13 +162,13 @@ var defendersRemaining = 3;
 
 
             if (selected[0].health < 0) {
-                var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
+              //  var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
 
                 $(".message").html("<p>You were defeated by " + defender.name + ". GO BACK TO YOUR TOWER.</p>");
-                $(".restart").append(button);
-                $(".restart").click(function() {
-                    window.location.reload();
-                    $(".restart").remove();
+              //  $(".restart").append(button);
+              $(".restartButton").show();
+                $(".restartButton").click(function() {
+                    window.location.reload();   
               })}
               
        if (defender.health > 0) {
@@ -188,8 +204,9 @@ var defendersRemaining = 3;
                 charIddefender = parseInt($(this).attr("id"));
                 defender = characters[charIddefender];
                 defendersRemaining--;
+                points(defender);
             }) 
-            points(defender);
+            
         }}
 
     //  //   function gameOver() {
