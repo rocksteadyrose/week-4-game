@@ -1,6 +1,6 @@
-* {
+/* * {
     box-sizing: border-box;
-  }
+  }*/
 
   @font-face {
     font-family: "waltograph";
@@ -8,16 +8,16 @@
     font-weight: normal;
 }
 
-body {
+html, body {
     background-image: url('../images/background.jpg');
     color: rgb(130, 28, 247);
-    height: 100vh;
-
+    width:100%;
+    height:100%;
 }
 
 .container {
-    height: 100vh;
-    margin: 0 auto;
+    width: 850px;
+    height: 50px;
 }
 
 h1 {
@@ -43,6 +43,13 @@ h1 {
         /*background-color: white;*/
 }
 
+.row {
+    padding: 0px;
+}
+
+.panel-title {
+    padding: 0px;
+}
 .yourcharacter {
     width: 200px;
 	display: flex;
@@ -73,6 +80,13 @@ h1 {
     max-width: 200px;
 	display: flex;
     flex-direction: row;
+}
+
+.defendernew h1 {
+    max-width: 200px;
+	display: flex;
+    flex-direction: row;
+    font-size: 200;
 }
 
 .thumbnail {
