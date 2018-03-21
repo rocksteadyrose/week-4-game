@@ -133,11 +133,11 @@ var defendersRemaining = 3;
             defender = characters[charIddefender];
             defenderChosen = true;
         })
-            points(defender, character);
+            points(defender);
         }
 
 
-    function points(defender, character) {
+    function points() {
                
         if (defenderChosen) {
             $(".attackButton").on( "click", function() {
@@ -159,17 +159,6 @@ var defendersRemaining = 3;
             
             $(".yourcharacter").empty();
             $(".yourcharacter").append("<div class = 'thumbnail'" + '<h1>' + selected[0].name + '<br>' + selected[0].health + '</h1>' + '<img src=' + selected[0].image + '>'); 
-
-
-            if (selected[0].health < 0) {
-              //  var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
-
-                $(".message").html("<p>You were defeated by " + defender.name + ". GO BACK TO YOUR TOWER.</p>");
-              //  $(".restart").append(button);
-              $(".restartButton").show();
-                $(".restartButton").click(function() {
-                    window.location.reload();   
-              })}
               
        if (defender.health > 0) {
         selected[0].health = selected[0].health - defender.baseAttack;}//Counter-attack the user if they're still 
@@ -183,8 +172,22 @@ var defendersRemaining = 3;
                 $(".defendersection").attr('class', 'defendingcharacter');
                 charIddefender = parseInt($(this).attr("id"));
                 defender = characters[charIddefender];
+                defender.health;
+                console.log(defender.health);
+                defender.attack;
                 defendersRemaining--;
-                                          } ) }})}}
+                points();
+                                          } ) }
+                                        
+        if (selected[0].health < 0) {
+        //  var button = $("<button class='btn btn-default restartButton'>"+ 'Restart' + "</button>");
+
+            $(".message").html("<p>You were defeated by " + defender.name + ". GO BACK TO YOUR TOWER.</p>");
+        //  $(".restart").append(button);
+        $(".restartButton").show();
+            $(".restartButton").click(function() {
+                window.location.reload();   
+        })} })}}
 
    
 
@@ -193,21 +196,21 @@ var defendersRemaining = 3;
       //   gameOver();}}
      
 
-        function resetGame() {
-            if (resetReady === true) {
-                console.log(resetReady);
-            $(".thumbnail").on( "click", function() {
-                $(".defendingcharacter > .thumbnail").remove();
-                $(".defendingcharacter").append($(this));
-                $(".defendingcharacter").show();
-                $(".defendersection").attr('class', 'defendingcharacter');
-                charIddefender = parseInt($(this).attr("id"));
-                defender = characters[charIddefender];
-                defendersRemaining--;
-                points(defender);
-            }) 
+        // function resetGame() {
+        //     if (resetReady === true) {
+        //         console.log(resetReady);
+        //     $(".thumbnail").on( "click", function() {
+        //         $(".defendingcharacter > .thumbnail").remove();
+        //         $(".defendingcharacter").append($(this));
+        //         $(".defendingcharacter").show();
+        //         $(".defendersection").attr('class', 'defendingcharacter');
+        //         charIddefender = parseInt($(this).attr("id"));
+        //         defender = characters[charIddefender];
+        //         defendersRemaining--;
+        //         points(defender);
+        //     }) 
             
-        }}
+        // }}
 
     //  //   function gameOver() {
     //         if (gameisover === true) {
@@ -238,7 +241,7 @@ var defendersRemaining = 3;
             initializeDefender();
             selectDefender();
             points();
-            resetGame();
+           // resetGame();
           //  gameOver();
 
 
