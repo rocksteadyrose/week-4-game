@@ -49,7 +49,7 @@ var enemyChosen = false;
 var defenderChosen = false;
 var characterChosen = false;
 var character;
-var restartTrue;
+var restartTrue = false;
 var gameIsOver;
 var finalArray = [];
 var selected = [];
@@ -101,8 +101,6 @@ var selectedDefender = [];
         selected.push(character)}
                 else {}
         // }
-        console.log(selected[0]);
-        // selected.attack;
         startGame(character, charIdcharacter);
         })
     }
@@ -136,7 +134,6 @@ var selectedDefender = [];
          //     defender === character;
          // } else if ($(defender).hasClass("defendingcharacter")) {
         //    defender === defender}
-             console.log(selected);
             defenderChosen = true;
             points();
         })   
@@ -144,37 +141,41 @@ var selectedDefender = [];
 
 
     function points() {
+        
         if (defenderChosen) {
-            console.log(defender);
-            console.log(selected);    
+            
             $(".attackButton").on( "click", function() {
 
-                if (defender.id === 0) {
-                    (defender.health === 120)
-                }
-
-                console.log(defender.health);
-                console.log(selected[0].attack);
-
              defender.health = defender.health - selected[0].attack;
+
             $(".defendingcharacter").html("<div style='font-size:20px; font-weight:bold; padding-top: 20px;' class = 'thumbnail defendernew'" + '<h1>' + defender.name + '<br>' + defender.health + '<img src=' + defender.image  + '>'); 
+
             selected[0].attack = selected[0].attack + selected[0].baseAttack;
-            $(".message").html("<b>You attacked </b>" + defender.name + " for " + selected[0].attack + " damage. " + selected[0].name + " attacked you back for " + defender.baseAttack + " damage.");        
+
+            $(".message").html("<b>You attacked </b>" + defender.name + " for " + selected[0].attack + " damage. " + selected[0].name + " attacked you back for " + defender.baseAttack + " damage."); 
+
             $(".yourcharacter").empty();
+
             $(".yourcharacter").append("<div style='font-size:20px; font-weight:bold; padding-top: 20px;'class = 'thumbnail'" + '<h1>' + selected[0].name + '<br>' + selected[0].health + '</h1>' + '<img src=' + selected[0].image + '>'); 
+
         if (selected[0].health < 0) {
-            restartTrue = true;
-            gameOver()}
-        if (defender.health > 0) {
-        selected[0].health = selected[0].health - defender.baseAttack;}
-            else { 
-            resetReady = true;
-            $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
-            resetGame();
-        } 
-        if (defendersRemaining < 0) {
-            gameIsOver = true;
-            winner();}})}}
+            console.log("hello");
+            $(".restartButton").show();           
+            $(".message").html("<p>You were defeated by " + defender.name + ". GO BACK TO YOUR TOWER OR....</p>");
+            $(".restartButton").click(function() {  })} 
+            
+        if (defender.health < 0) {
+                resetReady = true;
+                $(".message").html("<p>You have defeated " + defender.name + ". Choose another enemy.</p>");
+                resetGame();
+            } 
+
+            if (defender.health >= 0) {
+                selected[0].health = selected[0].health - defender.baseAttack;}
+
+            if (defendersRemaining < 0) {
+                gameIsOver = true;
+                winner(); } } )}}
              
 
         function winner() {
@@ -197,12 +198,9 @@ var selectedDefender = [];
         points();
         })}}
 
-function gameOver() {
-            if (restartTrue) {
-                $(".restartButton").click(function() { 
-                    $(".restartButton").show();   
-            $(".message").html("<p>You were defeated by " + defender.name + ". GO BACK TO YOUR TOWER OR....</p>");})}}
+
     
+
 
             setUpCharacterTab();
             initializeCharacter();
@@ -210,8 +208,7 @@ function gameOver() {
             initializeDefender();
             selectDefender();
             points();
-           resetGame();
-            gameOver();
+           resetGame();      
             winner();
 
 
